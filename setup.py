@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 from setuptools import Extension
+from setuptools import find_namespace_packages
 from setuptools import find_packages
 from setuptools import setup
 from setuptools.command.build_ext import build_ext
@@ -383,20 +384,15 @@ if __name__ == "__main__":
         version=symforce_version(),
         long_description=fixed_readme(),
         long_description_content_type="text/markdown",
-        packages=find_packages() + find_packages(where="third_party/symenginepy"),
+        packages=find_namespace_packages(where=".", include=["symforce*"])
+        + find_packages(where=".", exclude=["symforce*"])
+        + find_packages(where="third_party/symenginepy"),
         package_dir={
             "symforce": "symforce",
             "symengine": "third_party/symenginepy/symengine",
             "lcmtypes": "lcmtypes_build/lcmtypes",
         },
-        package_data={
-            "symforce": [
-                "**/*.jinja",
-                "**/*.mtx",
-                "**/README*",
-                ".clang-format",
-            ]
-        },
+        package_data={"": ["*.jinja", "*.mtx", "README*", ".clang-format"]},
         # pyproject.toml doesn't allow specifying url or homepage separately, and if it's not
         # specified separately PyPI sorts all the links alphabetically
         # https://github.com/pypi/warehouse/issues/3097
