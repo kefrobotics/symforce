@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>symforce</name>
+  <version>0.0.0</version>
+  <description>symforce</description>
+
+ 
+
+  <export>
+      <build_type>ament_python</build_type>
+  </export>
+</package>
